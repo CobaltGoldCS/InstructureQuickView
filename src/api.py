@@ -142,8 +142,3 @@ if __name__ == "__main__":
     userid = getUserId(token)
     courseIds = getCourseIds(token)
     print(upcomingAssignments(token, courseIds))
-
-# due_at
-# allowed_attempts
-# html_url
-# name
