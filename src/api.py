@@ -24,21 +24,24 @@ def requestJSON(token: str, url) -> Optional[str]:
         return message.json()
     return None
 
-def accessToken() -> str:
+def accessTokenAndDomain() -> str:
     """
-    Either gets the accesstoken from 'accesstoken.txt', or asks the user for the token and creates the aforementioned file.
-
-    returns: The access token
+    Either gets the accesstoken and domain from 'accesstoken.txt',
+    or asks the user for the token + domain and creates the aforementioned file.
+    
+    returns: The access token and domau
     """
     tokenpath = Path("accesstoken.txt")
     if not Path.exists(tokenpath):
         token = input("Please provide your access token: ")
+        domain = input("Please provide the domain of your canvas: ")
         with open(tokenpath, "w+") as file:
-            file.write(token)
+            file.write(f"{token}\n{domain}")
     else:
         with open(tokenpath, "r") as file:
-            token = file.read()
-    return token
+            token, domain = file.readlines()
+            
+    return token, domain
 
 def getCourseIds(token: str) -> list[int]:
     """
@@ -138,7 +141,7 @@ def upcomingEvents(token: str):
 
 
 if __name__ == "__main__":
-    token = accessToken()
+    domain, token = accessToken()
     userid = getUserId(token)
     courseIds = getCourseIds(token)
     print(upcomingAssignments(token, courseIds))
