@@ -54,6 +54,8 @@ def getCourseIds(token: str) -> list[int]:
     """
     coursesurl = f"https://canvas.instructure.com/api/v1/courses"
     jsoncourses = requestJSON(token, coursesurl)
+    if jsoncourses is None:
+        jsoncourses = []
 
     ids = [course for course in jsoncourses if datetime.fromisoformat(course["end_at"][:-1]) > datetime.now()]
     return ids
@@ -122,6 +124,7 @@ def todoItems(token: str):
     """
     url = f"https://canvas.instructure.com/api/v1/users/self/todo"
     todoJson = requestJSON(token, url)
+    print(todoJson)
     print(json.dumps(todoJson, indent=4, sort_keys=True))
 
 def upcomingEvents(token: str):
@@ -135,13 +138,14 @@ def upcomingEvents(token: str):
     """
     url = f"https://canvas.instructure.com/api/v1/users/self/upcoming_events"
     upcomingJson = requestJSON(token, url)
+    print(json.dumps(upcomingJson, indent=4, sort_keys=True))
+
     
     
 
 
 
 if __name__ == "__main__":
-    domain, token = accessToken()
-    userid = getUserId(token)
-    courseIds = getCourseIds(token)
-    print(upcomingAssignments(token, courseIds))
+    user = structures.User('2087~xDVs23GQKea17nmzGlEAb9yC19izhXYQieUGInQgHeIZ8bXdbneHLrz5ubAsfu3i', 'iechs.instructure.org')
+    #userid = getUserId(token)
+    upcomingAssignments(user.utoken)
