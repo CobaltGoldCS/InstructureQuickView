@@ -144,8 +144,3 @@ def upcomingEvents(token: str):
     
 
 
-
-if __name__ == "__main__":
-   
-    #userid = getUserId(token)
-    print(getCourseIds(user.utoken))
