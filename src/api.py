@@ -24,24 +24,24 @@ def requestJSON(token: str, url) -> Optional[str]:
         return message.json()
     return None
 
-def accessTokenAndDomain() -> str:
+def getOrSaveUser() -> structures.User:
     """
     Either gets the accesstoken and domain from 'accesstoken.txt',
     or asks the user for the token + domain and creates the aforementioned file.
     
-    returns: The access token and domau
+    returns: The access token and domain
     """
     tokenpath = Path("accesstoken.txt")
     if not Path.exists(tokenpath):
         token = input("Please provide your access token: ")
-        domain = input("Please provide the domain of your canvas: ")
+        domain = input("Please provide the domain of your canvas: ").replace("/","").strip()
         with open(tokenpath, "w+") as file:
             file.write(f"{token}\n{domain}")
     else:
         with open(tokenpath, "r") as file:
             token, domain = file.readlines()
             
-    return token, domain
+    return structures.User(token, domain)
 
 def getCourseIds(token: str) -> list[int]:
     """
