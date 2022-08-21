@@ -5,4 +5,4 @@ accesstoken.txt
 pyvenv.cfg
 .python-version
 src/__pycache__
-.vscodes
+.vscode
