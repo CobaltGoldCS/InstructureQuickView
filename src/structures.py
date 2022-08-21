@@ -8,4 +8,9 @@ class Assignment:
     name: str
     dueDate: datetime
 
+@dataclass
+class User:
+    utoken: str
+    domain: str
+
 
