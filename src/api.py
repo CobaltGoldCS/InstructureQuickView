@@ -2,7 +2,7 @@ import json
 from time import sleep
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Callable
 
 import requests
 
@@ -56,8 +56,9 @@ def getCourseIds(token: str) -> list[int]:
     jsoncourses = requestJSON(token, coursesurl)
     if jsoncourses is None:
         jsoncourses = []
-
-    ids = [course for course in jsoncourses if datetime.fromisoformat(course["end_at"][:-1]) > datetime.now()]
+    formatIsoDate: Callable[[str], datetime] = \
+     lambda date: datetime.fromordinal(0) if date is None else datetime.fromisoformat(date[:-1])
+    ids = [course["id"] for course in jsoncourses if formatIsoDate(course["end_at"]) > datetime.now()]
     return ids
 
 def getUserId(token: str) -> int:
