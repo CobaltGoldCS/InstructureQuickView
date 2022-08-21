@@ -3,3 +3,5 @@ Lib
 Include
 accesstoken.txt
 pyvenv.cfg
+.python-version
+src/__pycache__
