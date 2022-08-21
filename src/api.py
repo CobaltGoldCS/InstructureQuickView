@@ -135,7 +135,7 @@ def upcomingEvents(token: str):
     parameters:
         token: The access token
 
-    returns: A List of todos for the current user
+    returns: A List of events for the current user
     """
     url = f"https://canvas.instructure.com/api/v1/users/self/upcoming_events"
     upcomingJson = requestJSON(token, url)
